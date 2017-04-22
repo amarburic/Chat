@@ -1,0 +1,22 @@
+import java.net.InetAddress;
+import java.util.Map;
+
+public class Broadcaster implements Runnable {
+
+	private Connector connector; 
+	private int port;
+	private DatagramSocket broadcaster;
+	
+	public Broadcaster(Connector connector, int port) {
+		this.connector = connector;
+		this.port = port;
+		broadcaster = new DatagramSocket(port);
+	}
+	
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+
+	}
+
+}

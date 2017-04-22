@@ -1,0 +1,27 @@
+import java.net.DatagramSocket;
+import java.net.InetAddress;
+import java.net.SocketException;
+import java.util.TimerTask;
+
+public class Connector extends TimerTask {
+
+	private InetAddress serverIp;
+	private int serverPort;
+	private int port;
+	private DatagramSocket sender;
+	
+	public Connector(int port, int serverPort, InetAddress serverIp) throws SocketException {
+		this.port = port;
+		this.serverPort = serverPort;
+		this.serverIp = serverIp;
+		sender = new DatagramSocket(port);
+	}
+	
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		
+	}
+	
+
+}

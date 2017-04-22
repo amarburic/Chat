@@ -1,0 +1,38 @@
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.InetAddress;
+import java.net.SocketException;
+import java.util.ArrayList;
+
+import statics.Values;
+
+public class Broadcaster implements Runnable {
+
+	private ArrayList<InetAddress> destinations; 
+	private String message;
+	private int port;
+	private DatagramSocket broadcaster;
+
+	public Broadcaster(int port) throws SocketException {
+		this.destinations = new ArrayList<InetAddress>();
+		this.port = port;
+		broadcaster = new DatagramSocket(port);
+	}
+	
+	public void setDestinations(ArrayList<InetAddress> destinations) {
+		this.destinations = destinations;
+	}
+	
+	@Override
+	public void run() {
+		/*Add check if already running
+		 * Deal with overlapping calls*/
+		for(InetAddress ip : destinations) {
+			byte[] sendData = message.getBytes();
+			DatagramPacket sendPacket =
+				new DatagramPacket(sendData, sendData.length, ip, Values.CLIENT_BROADCAST_PORT);
+			broadcaster.send(sendPacket);
+		}
+	}
+
+}

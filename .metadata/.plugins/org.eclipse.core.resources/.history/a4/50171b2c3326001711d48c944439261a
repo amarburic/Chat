@@ -1,0 +1,111 @@
+import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.InetAddress;
+import java.net.SocketException;
+import java.net.SocketTimeoutException;
+import java.util.Arrays;
+
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+
+class ButtonFrame extends JFrame
+{
+	JButton bChange ; // reference to the button object
+	JTextField input;
+	JTextArea output;
+	// constructor for ButtonFrame
+	ButtonFrame(String title) 
+	{
+		super( title );                     // invoke the JFrame constructor
+		setLayout( new BoxLayout( getContentPane(), BoxLayout.Y_AXIS) );      // set the layout manager
+		output = new JTextArea(20, 20);
+		bChange = new JButton("Turn off!"); // construct a JButton
+		add(output);
+		add( bChange );                     // add the button to the JFrame
+		setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );  
+		bChange.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent ev) {
+				if(ChatServer.state) {
+					bChange.setText("Turn on");
+					ChatServer.turnOff = true;
+					System.out.println("Off");
+				} else {
+					bChange.setText("Turn off");
+					ChatServer.turnOn = true;
+					System.out.println("On");
+				}
+			}
+		});
+	}
+
+}
+
+public class ChatServer {
+
+	public static DatagramSocket serverSocket = null;
+	public static boolean state = true, turnOff = false, turnOn = false;
+	public static void main(String[] args) throws Exception {
+		ButtonFrame frm = new ButtonFrame("Button Demo");
+
+		frm.setSize( 150, 75 );     
+		frm.setVisible( true ); 
+		serverSocket = new DatagramSocket(9876);
+		byte[] receiveData = new byte[1024];
+		byte[] sendData = new byte[1024];
+		while(true)
+		{
+			//System.out.println("state: " + state);
+			if(ChatServer.state) {
+				boolean timedOut = false;
+				Arrays.fill( receiveData, (byte) 0 );
+				DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
+				try {
+					serverSocket.setSoTimeout(1000);
+				} catch (SocketException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				try {
+					serverSocket.receive(receivePacket);
+				} catch(SocketTimeoutException ste) {
+					timedOut = true;
+					//System.out.println("timed out");
+				}
+				if(!timedOut) {
+					String sentence = new String( receivePacket.getData());
+					//System.out.println("RECEIVED: " + sentence);
+					InetAddress IPAddress = receivePacket.getAddress();
+					int port = receivePacket.getPort();
+					String capitalizedSentence = sentence.toUpperCase();
+					sendData = capitalizedSentence.getBytes();
+					DatagramPacket sendPacket =
+							new DatagramPacket(sendData, sendData.length, IPAddress, port);
+					serverSocket.send(sendPacket);
+				}
+				if(turnOff) {
+					ChatServer.serverSocket.close();
+					turnOff = false;
+					state = false;
+				}
+			} else {
+				if(turnOn) {
+					serverSocket = new DatagramSocket(9875);
+					turnOn = false;
+					state = true;
+				}
+			}
+		}
+
+	}
+
+}
+
+

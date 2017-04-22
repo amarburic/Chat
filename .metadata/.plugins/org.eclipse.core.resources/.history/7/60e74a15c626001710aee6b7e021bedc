@@ -1,0 +1,45 @@
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+
+class ButtonFrame extends JFrame
+{
+	JButton bChange ; // reference to the button object
+	JTextField input;
+	JTextArea output;
+	// constructor for ButtonFrame
+	ButtonFrame(String title) 
+	{
+		super( title );                     // invoke the JFrame constructor
+		setLayout( new BoxLayout( getContentPane(), BoxLayout.Y_AXIS) );      // set the layout manager
+		output = new JTextArea(20, 20);
+		bChange = new JButton("Turn off!"); // construct a JButton
+		add(output);
+		add( bChange );                     // add the button to the JFrame
+		setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );  
+		bChange.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent ev) {
+				if(ChatServer.state) {
+					bChange.setText("Turn on");
+					ChatServer.turnOff = true;
+					System.out.println("Off");
+				} else {
+					bChange.setText("Turn off");
+					ChatServer.turnOn = true;
+					System.out.println("On");
+				}
+			}
+		});
+	}
+	public void receive(String message) {
+		output.append("\n" + message);
+	}
+
+}

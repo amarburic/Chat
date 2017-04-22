@@ -1,0 +1,20 @@
+import java.net.DatagramSocket;
+import java.net.SocketException;
+
+public class Receiver implements Runnable {
+
+	private int port;
+	private DatagramSocket listenerSocket = null;
+	
+	public Receiver(int port) throws SocketException {
+		this.port = port;
+		listenerSocket = new DatagramSocket(port);
+	}
+	
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+
+	}
+
+}

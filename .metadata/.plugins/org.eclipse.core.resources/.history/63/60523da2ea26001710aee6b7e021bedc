@@ -1,0 +1,44 @@
+import java.io.IOException;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.InetAddress;
+import java.net.SocketException;
+import java.util.TimerTask;
+
+import statics.Values;
+
+public class Connector extends TimerTask {
+
+	private InetAddress serverIp;
+	private int serverPort;
+	private int port;
+	private DatagramSocket sender;
+	
+	private final String message = "I'm here";
+	
+	public Connector(int port, int serverPort, InetAddress serverIp) throws SocketException {
+		this.port = port;
+		this.serverPort = serverPort;
+		this.serverIp = serverIp;
+		sender = new DatagramSocket(port);
+	}
+
+	public void setServerIp(InetAddress serverIp) {
+		this.serverIp = serverIp;
+	}
+	
+	@Override
+	public void run() {
+		byte[] sendData = message.getBytes();
+		DatagramPacket sendPacket =
+			new DatagramPacket(sendData, sendData.length, ip, Values.CLIENT_BROADCAST_PORT);
+		try {
+			sender.send(sendPacket);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+
+}

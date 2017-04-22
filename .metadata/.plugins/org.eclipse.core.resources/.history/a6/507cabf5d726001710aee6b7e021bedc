@@ -1,0 +1,24 @@
+import java.net.DatagramSocket;
+import java.net.InetAddress;
+import java.net.SocketException;
+import java.util.ArrayList;
+
+public class Broadcaster implements Runnable {
+
+	private ArrayList<InetAddress> destinations; 
+	private int port;
+	private DatagramSocket broadcaster;
+	
+	public Broadcaster(int port) throws SocketException {
+		this.destinations = new ArrayList<InetAddress>();
+		this.port = port;
+		broadcaster = new DatagramSocket(port);
+	}
+	
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+
+	}
+
+}

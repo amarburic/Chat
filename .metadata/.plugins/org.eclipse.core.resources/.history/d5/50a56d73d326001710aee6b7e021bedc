@@ -1,0 +1,18 @@
+import java.net.InetAddress;
+import java.util.ArrayList;
+
+public class Connector implements Runnable {
+
+	
+	private ArrayList<InetAddress> connectedUsers;
+	
+	public Connector() {
+		connectedUsers = new ArrayList<InetAddress>();
+	}
+	
+	@Override
+	public void run() {
+		
+	}
+
+}
