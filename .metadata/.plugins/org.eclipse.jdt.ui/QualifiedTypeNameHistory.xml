@@ -9,4 +9,5 @@
 <fullyQualifiedTypeName name="statics.Values"/>
 <fullyQualifiedTypeName name="java.net.InetAddress"/>
 <fullyQualifiedTypeName name="java.awt.Dimension"/>
+<fullyQualifiedTypeName name="java.net.InetSocketAddress"/>
 </qualifiedTypeNameHistroy>

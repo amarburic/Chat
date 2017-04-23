@@ -70,11 +70,13 @@
 	</section>
 	<section name="FatJarPackageWizard">
 		<item value="C:\Users\Amar.B\workspace" key="FatJarPackageWizardPage.ANTSCRIPT_LOCATION"/>
-		<item value="ChatClient - chat-client" key="FatJarPackageWizardPage.LAUNCH_CONFIGURATION_SELECTION_NAME"/>
-		<item value="C:\Users\Amar.B\Desktop\client.jar" key="FatJarPackageWizardPage.DESTINATION_PATH_SELECTION"/>
+		<item value="UDPServer - socket-test-server" key="FatJarPackageWizardPage.LAUNCH_CONFIGURATION_SELECTION_NAME"/>
+		<item value="C:\Users\Amar.B\Desktop\test-server.jar" key="FatJarPackageWizardPage.DESTINATION_PATH_SELECTION"/>
 		<item value="false" key="FatJarPackageWizardPage.ANTSCRIPT_SAVE"/>
 		<item value="1" key="FatJarPackageWizardPage.LIBRARY_HANDLING"/>
 		<list key="FatJarPackageWizardPage.DESTINATION_NAMES_ID">
+			<item value="C:\Users\Amar.B\Desktop\test-server.jar"/>
+			<item value="C:\Users\Amar.B\Desktop\test-client.jar"/>
 			<item value="C:\Users\Amar.B\Desktop\client.jar"/>
 			<item value="C:\Users\Amar.B\Desktop\server.jar"/>
 		</list>
