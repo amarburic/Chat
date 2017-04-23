@@ -19,7 +19,7 @@ import transmission.ChatServer;
 @SuppressWarnings("serial")
 public class GUI extends JFrame
 {
-	JButton bChange; 
+	JButton turnOff; 
 	JTextArea output;
 	JScrollPane scroll;
 	ChatServer cs;
@@ -33,25 +33,24 @@ public class GUI extends JFrame
 		setLocation(100, 100);
 		this.cs = cs;
 		setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS)); 																		
-		bChange = new JButton("Turn off!"); // construct a JButton
+		turnOff = new JButton("Turn off!"); 
 		output = new JTextArea(HISTORY, INPUT_WIDTH);
 		output.setEditable(false);
 		DefaultCaret caret = (DefaultCaret)output.getCaret();
 		caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
 		scroll = new JScrollPane(output);
-		//scroll.setAlignmentX(0);
 		scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		scroll.setAutoscrolls(true);
 		add(scroll);
 		JPanel panel = new JPanel();
 		panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
-		panel.add(bChange);
+		panel.add(turnOff);
 		add(panel);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		bChange.addActionListener(new ActionListener() {
+		turnOff.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent ev) {
-				/*ugasit server*/
+				/* TODO */
 			}
 		});
 	}
